@@ -1,0 +1,14 @@
+paths:
+  raw_data: "../dataset/raw/email_data.csv"
+  processed_data: "../dataset/processed/email_data.csv"
+  model: "../models/mail_classifier.joblib"
+
+data:
+  text_column: "Message"
+  label_column: "Category"
+
+train:
+  test_size: 0.2
+  random_state: 42
+  max_features: 10000
+  alpha: 0.1
