@@ -15,15 +15,17 @@ class EmailClassifier:
 
         self.pipeline = joblib.load(model_path)
 
-    def predict(self, text: str) -> str:
+    def predict(self, text: str) -> dict[str,str]:
         if not isinstance(text,str) or not clean(text):
             raise InferenceInputError("Invalid Input: The text should contain some alphabets or digits")
 
         pred_class = int(self.pipeline.predict([text])[0])
         pred_prob = self.pipeline.predict_proba([text])[0]
         email_class = "ham" if pred_class == 0 else "spam" 
-        
-        logger.info("The given email is %s with a probability of %d",email_class, round(int(pred_prob[pred_class] * 100), 2))
+        output_prob = pred_prob[pred_class]
+        logger.info("The given email is %s with a probability of %d %%",email_class, round(int(output_prob * 100), 2))
+
+        return {"class":email_class, "prob":f"{round(int(output_prob * 100), 2)} %"}
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Classify whether an email is spam or ham")
