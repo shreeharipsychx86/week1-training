@@ -12,10 +12,10 @@ def clean(text: str) -> str:
     text = text.lower()
     
     # Remove punctuations
-    text = _PUNCTUATION_RE.sub(r"[^A-Za-z\s\d]","",text)
+    text = re.sub(_PUNCTUATION_RE,"",text)
 
     # Remove unnecessary whitespaces, tabs, newlines
-    text = _WHITESPACE_RE.sub(r"\s+"," ",text).strip()
+    text = re.sub(_WHITESPACE_RE," ",text).strip()
 
     return text
 

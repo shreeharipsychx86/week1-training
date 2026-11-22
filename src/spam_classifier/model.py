@@ -26,7 +26,7 @@ def build_pipeline(train_cfg: TrainConfig) -> Pipeline:
 
     return Pipeline([("clean",FunctionTransformer(clean_batch)),("tfidf", TfidfVectorizer(stop_words="english",max_features=train_cfg.max_features)),("mnb",MultinomialNB(alpha=train_cfg.alpha))])
 
-def eval_and_export(pipeline:Pipeline,x_test: pd.Series, y_test: pd.Series, metrics_path:Path, cm_path:Path,error_analysis_path:Path) -> dict[str, Any]:
+def eval_and_export(pipeline:Pipeline,x_test: pd.Series, y_test: pd.Series, metrics_path:Path, cm_path:Path, error_analysis_path:Path) -> dict[str, Any]:
     predicted_y = pipeline.predict(x_test)
     spam_prob = pipeline.predict_proba(x_test)[:,1]
 

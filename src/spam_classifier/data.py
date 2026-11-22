@@ -50,6 +50,7 @@ def preprocess_and_save(df: pd.DataFrame, processed_path: Path, data_cfg: DataCo
 
     cleaned[text_col] = cleaned[text_col].apply(clean)
     cleaned = cleaned[cleaned[text_col] != ""].reset_index(drop=True)
+    cleaned[label_col] = cleaned[label_col].map(LABEL_MAPPING).astype(int)
 
     if cleaned.empty:
         raise DataValidationError("Dataset is empty after cleaning and filtering.")
