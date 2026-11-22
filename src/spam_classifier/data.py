@@ -42,9 +42,15 @@ def preprocess_and_save(df: pd.DataFrame, processed_path: Path, data_cfg: DataCo
 
     cleaned = cleaned[(cleaned[text_col] != "") | (cleaned[label_col] != "")]
 
+    invalid_labels = set(cleaned[label_col].unique()) - set(LABEL_MAPPING.keys())
+   
+    if invalid_labels:
+        raise DataValidationError(f"Unexpected label values found: {invalid_labels}")
+    
     numSpam = cleaned.loc[cleaned[label_col] == "spam", label_col].count()
     numHam = cleaned.loc[cleaned[label_col] == "ham", label_col].count()
 
+    
     logger.info("No of spam messages: %d", numSpam)
     logger.info("No of ham messages: %d", numHam)
 
