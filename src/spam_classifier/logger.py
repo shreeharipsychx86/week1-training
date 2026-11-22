@@ -1,18 +1,16 @@
 import logging
+import sys
 
-# Basic Config
-logging.basicConfig(level=logging.DEBUG, filename="log.log", filemode="w", format="%(asctime)s - %(levelname)s - %(message)s")
-# logging.debug("Debug")
-# logging.info("Info")
-# logging.warning("Warning")
-# logging.error("Error")
-# logging.critical("Critical")
-
-# Custom logger
-logger = logging.getLogger("logger")
-handler = logging.FileHandler(filename="custom.log",mode="a")
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-
-logger.info("This is being logged by a custom logger")
+def get_logger(name: str, level: int = logging.INFO) -> logging.Logger:
+    logger = logging.getLogger(name)
+    
+    if not logger.handlers:
+        handler = logging.StreamHandler(sys.stdout)
+        formatter = logging.Formatter(fmt = "%(asctime)s - %(levelname)s - %(name)s | %(message)s")
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        logger.setLevel(level)
+        logger.propagate = False
+    
+    return logger
+    
