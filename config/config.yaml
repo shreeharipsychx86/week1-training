@@ -1,7 +1,10 @@
 paths:
   raw_data: "../dataset/raw/email_data.csv"
   processed_data: "../dataset/processed/email_data.csv"
-  model: "../models/mail_classifier.joblib"
+  model: "../artifacts/mail_classifier.joblib"
+  metrics: "artifacts/metrics.json"
+  confusion_matrix: "artifacts/confusion_matrix.png"
+  error_analysis: "artifacts/error_analysis.csv"
 
 data:
   text_column: "Message"

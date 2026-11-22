@@ -5,6 +5,5 @@ nltk
 matplotlib
 seaborn
 joblib
-pydantic-settings
 pytest
 PyYAML
