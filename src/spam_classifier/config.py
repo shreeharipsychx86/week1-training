@@ -44,7 +44,6 @@ def load_config(config_path: Path = Path("config/config.yaml")) -> AppConfig:
         d = config["data"]
         t = config["train"]
         logger = get_logger(__name__)
-        logger.info("Bug")
         return AppConfig(paths=PathConfig(raw_data=Path(p["raw_data"]),processed_data=Path(p["processed_data"]),model=Path(p["model"]),metrics=Path(p.get("metrics","artifacts/metrics.json")),confusion_matrix=Path(p.get("confusion_matrix","artifacts/metrics.json")), error_analysis=Path(p.get("error_analysis","artifacts/error_analysis.csv"))),
                         data = DataConfig(text_column=d["text_column"],label_column=d["label_column"]),
                         train=TrainConfig(test_size=t["test_size"], random_state=t["random_state"], max_features=t["max_features"],alpha=t["alpha"]))

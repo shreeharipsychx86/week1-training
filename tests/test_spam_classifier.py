@@ -10,11 +10,13 @@ from pathlib import Path
 import pandas as pd
 
 def test_clean() -> None:
+    
     assert clean("WIN   $500\n\tNOW!!!") == "win 500 now"
     assert clean("!!!@@@###") == ""
 
 def test_training() -> None:
     path = Path("sample")
+    path.mkdir(parents=True,exist_ok=True)
     raw_csv = path / "raw.csv"
     print(raw_csv)
     df = pd.DataFrame({
