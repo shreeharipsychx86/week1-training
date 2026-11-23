@@ -29,16 +29,20 @@ def build_pipeline(train_cfg: TrainConfig) -> Pipeline:
 def eval_and_export(pipeline:Pipeline,x_test: pd.Series, y_test: pd.Series, metrics_path:Path, cm_path:Path, error_analysis_path:Path) -> dict[str, Any]:
     predicted_y = pipeline.predict(x_test)
     spam_prob = pipeline.predict_proba(x_test)[:,1]
+    cm = confusion_matrix(y_test,predicted_y)
+    roc_auc = round(float(roc_auc_score(y_test, spam_prob)), 4)
+    pr_auc = round(float(average_precision_score(y_test, spam_prob)), 4)
 
     report_text = classification_report(y_test,predicted_y,target_names=["ham","spam"])
     report_dict = classification_report(y_test,predicted_y,target_names=["ham","spam"],output_dict=True)
 
     logger.info("Classification Report: \n%s",report_text)
+    logger.info("\nROC-AUC: %s",roc_auc)
+    logger.info("\nPR-AUC: %s",pr_auc)
 
-    cm = confusion_matrix(y_test,predicted_y)
     metrics: dict[str, Any] = {
-        "roc_auc": round(float(roc_auc_score(y_test, spam_prob)), 4),
-        "pr_auc": round(float(average_precision_score(y_test, spam_prob)), 4),
+        "roc_auc": roc_auc,
+        "pr_auc": pr_auc,
         "confusion_matrix": cm.tolist(),
         "classification_report": report_dict,
     }
