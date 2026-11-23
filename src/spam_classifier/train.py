@@ -27,7 +27,7 @@ def run_training(cfg: AppConfig):
 
 def main():
     parser = argparse.ArgumentParser(description="Train and evaluate the spam classifier")
-    parser.add_argument("--config",type=Path,default=Path("config/config.yaml"),help="Path to YAML configuration file")
+    parser.add_argument("-c","--config",type=Path,default=Path("config/config.yaml"),help="Path to YAML configuration file")
 
     args = parser.parse_args()
     cfg = load_config(args.config)

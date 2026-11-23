@@ -29,8 +29,8 @@ class EmailClassifier:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Classify whether an email is spam or ham")
-    parser.add_argument("--config", type=Path, default=Path("config/config.yaml"), help="Path to YAML configuration file")
-    parser.add_argument("--text", type=str, help="Enter the email content")
+    parser.add_argument("-t", "--text", type=str, help="Enter the email: ")
+    parser.add_argument("-c", "--config", type=Path, default=Path("config/config.yaml"), help="Path to YAML configuration file")
 
     args = parser.parse_args()
     cfg = load_config(args.config)
