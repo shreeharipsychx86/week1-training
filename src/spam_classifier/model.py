@@ -1,4 +1,3 @@
-from sklearn.model_selection import train_test_split
 from typing import Any
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import classification_report, roc_auc_score, average_precision_score
