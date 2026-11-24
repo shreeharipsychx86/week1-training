@@ -23,7 +23,7 @@ class TrainConfig:
     test_size: float
     random_state: int
     max_features: int
-    alpha: float
+    alpha: list[float]
 
 
 @dataclass(frozen=True)
